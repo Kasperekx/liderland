@@ -7,6 +7,12 @@ import 'yet-another-react-lightbox/styles.css';
 import { motion } from 'framer-motion';
 import { Badge } from '../../components/ui/badge';
 import Image from 'next/image';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Liderland*PL - Galeria',
+  description: 'Galeria naszych kotów',
+};
 
 const images = [
   '/bella-2.jpg',

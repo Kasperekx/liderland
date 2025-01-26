@@ -3,6 +3,12 @@
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import Image from 'next/image';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Liderland*PL - Kontakt',
+  description: 'Skontaktuj się z nami',
+};
 
 const contactInfo = [
   {

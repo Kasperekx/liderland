@@ -2,6 +2,12 @@
 
 import { motion } from 'framer-motion';
 import { CatCard } from '../../components/CatCard';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Liderland*PL - Nasze Kocury',
+  description: 'Nasze koty hodowlane',
+};
 
 const cats = [
   {

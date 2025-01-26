@@ -8,6 +8,12 @@ import { Badge } from '../components/ui/badge';
 import { useEffect, useRef } from 'react';
 import { IconCard } from '../components/ui/icon-card';
 import { Award, Cat, Stethoscope } from 'lucide-react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Liderland*PL - Hodowla kotów Ragdoll',
+  description: 'Profesjonalna hodowla kotów Ragdoll w Polsce',
+};
 
 export default function Home() {
   // Optimize floating animation by reducing complexity and using transform
