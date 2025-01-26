@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 interface HeroProps {
   title: string;
@@ -9,6 +9,25 @@ interface HeroProps {
 }
 
 export function Hero({ title, highlightedWord, description }: HeroProps) {
+  const prefersReducedMotion = useReducedMotion();
+
+  const fadeIn = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { duration: 0.4, ease: 'easeOut' },
+    },
+  };
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, ease: 'easeOut' },
+    },
+  };
+
   return (
     <section className="relative overflow-hidden py-20 sm:py-24 lg:py-32">
       {/* Background decorative elements */}
@@ -16,25 +35,21 @@ export function Hero({ title, highlightedWord, description }: HeroProps) {
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,rgba(252,231,243,0.4)_0%,rgba(255,255,255,0)_60%)]" />
 
       <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mx-auto max-w-4xl text-center"
-        >
+        <motion.div variants={fadeIn} initial="hidden" animate="visible" className="mx-auto max-w-4xl text-center">
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            variants={fadeInUp}
+            initial="hidden"
+            animate="visible"
             className="mt-8 bg-gradient-to-b from-gray-900 to-gray-600 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-6xl lg:text-7xl"
           >
             {title} <span className="text-pink-500">{highlightedWord}</span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            variants={fadeInUp}
+            initial="hidden"
+            animate="visible"
+            transition={{ delay: 0.1 }}
             className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-600 sm:text-xl"
           >
             {description}

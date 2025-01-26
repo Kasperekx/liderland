@@ -21,7 +21,7 @@ const images = [
   '/bobek-2.jpg',
   '/enc.jpg',
   '/ollala-2.jpg',
-  '/parasol.jpg',
+  '/thomas-1.jpg',
   '/aluta.jpg',
   '/enric.jpg',
   '/parasol.jpg',
