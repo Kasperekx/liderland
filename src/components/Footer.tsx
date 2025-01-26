@@ -7,9 +7,9 @@ import { Instagram, Facebook, Mail, MapPin, Phone } from 'lucide-react';
 
 export function Footer() {
   return (
-    <footer className="relative ">
-      {/* Tło */}
-      <div className="absolute inset-0 overflow-hidden ">
+    <footer className="relative">
+      {/* Background */}
+      <div className="absolute inset-0 overflow-hidden">
         <Image
           src="/stopeczka.jpg"
           alt="Ragdoll kot"
@@ -21,23 +21,25 @@ export function Footer() {
       </div>
 
       <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 py-16 sm:py-24">
-          {/* Lewa strona */}
-          <div className="space-y-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="space-y-4"
-            >
+        <div className="py-16 sm:py-24">
+          {/* Main Footer Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12"
+          >
+            {/* Column 1 - Brand */}
+            <div className="space-y-4">
               <h2 className="text-3xl sm:text-4xl font-bold text-white">
                 Liderland<span className="text-pink-400">*PL</span>
               </h2>
               <p className="text-gray-300 max-w-md">
                 Profesjonalna hodowla kotów rasy Ragdoll. Nasze koty to nie tylko zwierzęta, to członkowie rodziny.
               </p>
-            </motion.div>
+            </div>
 
+            {/* Column 2 - Contact */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -67,68 +69,34 @@ export function Footer() {
                 </div>
               </div>
             </motion.div>
-          </div>
 
-          {/* Prawa strona */}
-          <div className="space-y-8">
+            {/* Column 3 - Social Media */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="flex gap-4"
+              className="space-y-4"
             >
-              <Link
-                href="https://instagram.com"
-                target="_blank"
-                className="p-2 rounded-full bg-pink-500 text-white hover:bg-pink-500 hover:text-white transition-colors"
-              >
-                <Instagram className="w-5 h-5" />
-              </Link>
-              <Link
-                href="https://facebook.com"
-                target="_blank"
-                className="p-2 rounded-full bg-pink-500 text-white hover:bg-pink-500 hover:text-white transition-colors"
-              >
-                <Facebook className="w-5 h-5" />
-              </Link>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="grid grid-cols-2 gap-8"
-            >
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-white">Nawigacja</h3>
-                <ul className="space-y-2">
-                  {['Strona główna', 'O nas', 'Kocury', 'Kotki', 'Kontakt'].map((item) => (
-                    <li key={item}>
-                      <Link
-                        href={item === 'O nas' ? '/#about' : `/${item.toLowerCase()}`}
-                        className="text-gray-300 hover:text-pink-400 transition-colors"
-                      >
-                        {item}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-white">Informacje</h3>
-                <ul className="space-y-2">
-                  {['Polityka prywatności'].map((item) => (
-                    <li key={item}>
-                      <Link href="#" className="text-gray-300 hover:text-pink-400 transition-colors">
-                        {item}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+              <h3 className="text-lg font-semibold text-white">Social Media</h3>
+              <div className="flex gap-4">
+                <Link
+                  href="https://instagram.com"
+                  target="_blank"
+                  className="p-2 rounded-full bg-pink-500 text-white hover:bg-pink-400 transition-colors"
+                >
+                  <Instagram className="w-5 h-5" />
+                </Link>
+                <Link
+                  href="https://facebook.com"
+                  target="_blank"
+                  className="p-2 rounded-full bg-pink-500 text-white hover:bg-pink-400 transition-colors"
+                >
+                  <Facebook className="w-5 h-5" />
+                </Link>
               </div>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Copyright */}
@@ -139,7 +107,7 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Dekoracyjne elementy */}
+      {/* Decorative elements */}
       <div className="absolute top-1/4 left-0 w-24 h-24 bg-pink-500 rounded-full blur-3xl opacity-10" />
       <div className="absolute bottom-1/4 right-0 w-32 h-32 bg-pink-500 rounded-full blur-3xl opacity-10" />
     </footer>

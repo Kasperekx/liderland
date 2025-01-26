@@ -89,7 +89,10 @@ export function Navbar() {
               <button className="md:hidden p-2 rounded-md" onClick={() => setIsOpen(true)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className={cn('h-6 w-6 transition-colors duration-300', isScrolled ? 'text-gray-900' : 'text-white')}
+                  className={cn(
+                    'h-6 w-6 transition-colors duration-300',
+                    isScrolled || pathname !== '/' ? 'text-gray-900' : 'text-white',
+                  )}
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -99,9 +102,11 @@ export function Navbar() {
               </button>
             </SheetTrigger>
             <SheetContent>
-              <SheetTitle className="text-2xl font-bold mb-8">
-                Liderland<span className="text-pink-500">*PL</span>
-              </SheetTitle>
+              <Link href="/">
+                <SheetTitle className="text-2xl font-bold mb-8">
+                  Liderland<span className="text-pink-500">*PL</span>
+                </SheetTitle>
+              </Link>
               <div className="flex flex-col space-y-4">
                 {navItems.map((item) => (
                   <Link
