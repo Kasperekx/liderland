@@ -9,9 +9,9 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu';
+} from '../components/ui/navigation-menu';
 import { motion } from 'framer-motion';
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '../components/ui/sheet';
 import { usePathname } from 'next/navigation';
 
 const navItems = [
