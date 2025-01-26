@@ -10,7 +10,7 @@ import { IconCard } from '../components/ui/icon-card';
 import { Award, Cat, Stethoscope } from 'lucide-react';
 
 export default function Home() {
-  // Funkcja do animacji
+  // Optimize floating animation by reducing complexity and using transform
   const useFloatingAnimation = (delay: number = 0) => {
     const ref = useRef<HTMLDivElement>(null);
 
@@ -23,10 +23,12 @@ export default function Home() {
 
       const animate = () => {
         const elapsed = Date.now() - startTime;
-        const position = Math.sin(elapsed / 700) * 6;
+        // Reduced amplitude and slower animation
+        const position = Math.sin(elapsed / 1000) * 4;
 
         if (element) {
-          element.style.transform = `translateY(${position}px)`;
+          // Use transform3d for better performance
+          element.style.transform = `translate3d(0, ${position}px, 0)`;
         }
 
         animationFrameId = requestAnimationFrame(animate);
@@ -71,13 +73,22 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: 'easeOut' }}
+              transition={{
+                duration: 0.6,
+                ease: 'easeOut',
+                // Add reduced motion support
+                reducedMotion: 'user',
+              }}
               className="text-center w-full max-w-4xl mx-auto space-y-6 sm:space-y-8 px-4 mt-32"
             >
               <motion.h2
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.1,
+                  reducedMotion: 'user',
+                }}
                 className="text-base sm:text-lg md:text-xl font-medium tracking-[0.2em] uppercase text-white/90"
               >
                 Profesjonalna hodowla kotów Ragdoll
@@ -123,11 +134,15 @@ export default function Home() {
               </motion.div>
             </motion.div>
 
-            {/* Scroll indicator */}
+            {/* Optimize motion animations */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1.2, duration: 1 }}
+              transition={{
+                delay: 0.8,
+                duration: 0.5,
+                reducedMotion: 'user',
+              }}
               className="absolute bottom-8 sm:bottom-12 left-1/2 transform -translate-x-1/2"
             >
               <div className="flex flex-col items-center gap-2 sm:gap-3">
@@ -135,8 +150,13 @@ export default function Home() {
                   Przewiń w dół
                 </a>
                 <motion.div
-                  animate={{ y: [0, 12, 0] }}
-                  transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 2.5,
+                    ease: 'easeInOut',
+                    reducedMotion: 'user',
+                  }}
                   className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white/60 border-t-0 border-l-0 rotate-45"
                 />
               </div>
@@ -151,8 +171,8 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.5 }}
             className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center"
           >
             {/* Lewa strona - Zdjęcia */}
