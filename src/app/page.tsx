@@ -1,12 +1,12 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '../components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Badge } from '@/components/ui/badge';
+import { Badge } from '../components/ui/badge';
 import { useEffect, useRef } from 'react';
-import { IconCard } from '@/components/ui/icon-card';
+import { IconCard } from '../components/ui/icon-card';
 import { Award, Cat, Stethoscope } from 'lucide-react';
 
 export default function Home() {

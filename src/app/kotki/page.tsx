@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CatCard } from '@/components/CatCard';
+import { CatCard } from '../../components/CatCard';
 
 const cats = [
   {
