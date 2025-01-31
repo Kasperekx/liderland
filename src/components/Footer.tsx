@@ -11,7 +11,7 @@ export function Footer() {
       {/* Background */}
       <div className="absolute inset-0 overflow-hidden">
         <Image
-          src="/stopeczka.jpg"
+          src="/stopeczka.png"
           alt="Ragdoll kot"
           fill
           className="object-cover object-top brightness-[0.6]"

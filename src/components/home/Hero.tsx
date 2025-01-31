@@ -10,7 +10,7 @@ export function Hero() {
     <div className="relative min-h-[100svh]">
       <div className="absolute inset-0">
         <Image
-          src="/bela-hero.jpg"
+          src="/bela-hero.png"
           alt="Ragdoll kot"
           fill
           className="object-cover brightness-75 object-top"

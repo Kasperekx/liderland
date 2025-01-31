@@ -3,8 +3,8 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Badge } from '../components/ui/badge';
-import { Button } from '../components/ui/button';
-import { Heart } from 'lucide-react';
+// import { Button } from '../components/ui/button';
+// import { Heart } from 'lucide-react';
 
 interface CatCardProps {
   name: string;
@@ -99,11 +99,11 @@ export function CatCard({
         </div>
 
         {/* Przyciski */}
-        <div className="flex gap-4 justify-center pt-2">
+        {/* <div className="flex gap-4 justify-center pt-2">
           <Button className="bg-pink-500 hover:bg-pink-600">
             <Heart className="w-4 h-4 mr-2" /> Rodowód
           </Button>
-        </div>
+        </div> */}
       </div>
 
       {/* Dekoracyjny element */}
