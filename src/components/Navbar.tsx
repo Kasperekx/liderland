@@ -13,20 +13,18 @@ import {
 import { motion } from 'framer-motion';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '../components/ui/sheet';
 import { usePathname } from 'next/navigation';
-
-const navItems = [
-  { name: 'Strona Główna', href: '/' },
-  { name: 'O nas', href: '/#about', scroll: false },
-  { name: 'Kocury', href: '/kocury' },
-  { name: 'Kotki', href: '/kotki' },
-  { name: 'Galeria', href: '/galeria' },
-  { name: 'Kontakt', href: '/kontakt' },
-];
+import { LanguageSwitch } from './LanguageSwitch';
+import { useLanguageWithRouter } from '@/hooks/useLanguage';
+import { translations } from '@/i18n/translations';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
   const pathname = usePathname();
+  const { language } = useLanguageWithRouter();
+  const t = translations[language as keyof typeof translations];
+
+  const isHomePage = pathname === '/' || pathname === '/en';
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -35,6 +33,25 @@ export function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const navItems =
+    language === 'en'
+      ? [
+          { name: t.nav.home, href: '/en' },
+          { name: t.nav.about, href: '/en#about', scroll: false },
+          { name: t.nav.males, href: '/en/males' },
+          { name: t.nav.females, href: '/en/females' },
+          { name: t.nav.gallery, href: '/en/gallery' },
+          { name: t.nav.contact, href: '/en/contact' },
+        ]
+      : [
+          { name: t.nav.home, href: '/' },
+          { name: t.nav.about, href: '/#about', scroll: false },
+          { name: t.nav.males, href: '/kocury' },
+          { name: t.nav.females, href: '/kotki' },
+          { name: t.nav.gallery, href: '/galeria' },
+          { name: t.nav.contact, href: '/kontakt' },
+        ];
 
   return (
     <motion.div
@@ -53,7 +70,7 @@ export function Navbar() {
             <span
               className={cn(
                 'text-2xl font-bold tracking-tight transition-colors duration-300',
-                isScrolled || pathname !== '/' ? 'text-gray-900' : 'text-white',
+                isScrolled || !isHomePage ? 'text-gray-900' : 'text-white',
               )}
             >
               Liderland<span className="text-pink-500">*PL</span>
@@ -61,27 +78,30 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <NavigationMenu className="hidden md:flex">
-            <NavigationMenuList className="space-x-1">
-              {navItems.map((item) => (
-                <NavigationMenuItem key={item.name}>
-                  <Link href={item.href} legacyBehavior passHref>
-                    <NavigationMenuLink
-                      className={cn(
-                        navigationMenuTriggerStyle(),
-                        'px-4 py-2 text-sm font-medium transition-colors duration-300',
-                        isScrolled || pathname !== '/'
-                          ? 'text-gray-700 hover:text-pink-600'
-                          : 'text-white/90 hover:text-white hover:bg-white/10',
-                      )}
-                    >
-                      {item.name}
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
+          <div className="hidden md:flex items-center space-x-4">
+            <NavigationMenu>
+              <NavigationMenuList className="space-x-1">
+                {navItems.map((item) => (
+                  <NavigationMenuItem key={item.name}>
+                    <Link href={item.href} legacyBehavior passHref>
+                      <NavigationMenuLink
+                        className={cn(
+                          navigationMenuTriggerStyle(),
+                          'px-4 py-2 text-sm font-medium transition-colors duration-300',
+                          isScrolled || !isHomePage
+                            ? 'text-gray-700 hover:text-pink-600'
+                            : 'text-white/90 hover:text-white hover:bg-white/10',
+                        )}
+                      >
+                        {item.name}
+                      </NavigationMenuLink>
+                    </Link>
+                  </NavigationMenuItem>
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
+            <LanguageSwitch />
+          </div>
 
           {/* Mobile Menu */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -118,6 +138,9 @@ export function Navbar() {
                     {item.name}
                   </Link>
                 ))}
+              </div>
+              <div className="mt-4 pt-4 border-t">
+                <LanguageSwitch />
               </div>
             </SheetContent>
           </Sheet>

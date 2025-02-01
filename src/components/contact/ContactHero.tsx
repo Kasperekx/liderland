@@ -3,8 +3,24 @@
 import { motion } from 'framer-motion';
 import { Phone } from 'lucide-react';
 import Image from 'next/image';
+import { useLanguageWithRouter } from '@/hooks/useLanguage';
+import { translations } from '@/i18n/translations';
 
-export function ContactHero() {
+interface ContactHeroProps {
+  translationKey: keyof typeof translations.pl;
+}
+
+export function ContactHero({ translationKey }: ContactHeroProps) {
+  const { language } = useLanguageWithRouter();
+  const t = translations[language as keyof typeof translations];
+  const content = t[translationKey] as {
+    badge: string;
+    titleStart: string;
+    titleEnd: string;
+    description: string;
+    callNow: string;
+  };
+
   return (
     <div className="relative mb-24">
       {/* Background decorative elements */}
@@ -28,7 +44,7 @@ export function ContactHero() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="inline-block bg-pink-100 text-pink-800 rounded-full px-4 py-1.5 text-sm mb-6"
           >
-            Skontaktuj się z nami
+            {content.badge}
           </motion.div>
 
           <motion.h1
@@ -37,9 +53,9 @@ export function ContactHero() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-5xl md:text-6xl font-medium text-gray-900 mb-6 leading-tight"
           >
-            Porozmawiajmy o{' '}
+            {content.titleStart}
             <span className="relative inline-block">
-              kotach
+              {content.titleEnd}
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: '100%' }}
@@ -55,7 +71,7 @@ export function ContactHero() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="text-gray-600 text-lg mb-8 max-w-lg"
           >
-            Masz pytania dotyczące naszych kotów? Chętnie na nie odpowiemy i pomożemy Ci w wyborze idealnego towarzysza.
+            {content.description}
           </motion.p>
 
           <motion.div
@@ -69,7 +85,7 @@ export function ContactHero() {
               className="inline-flex items-center gap-2 bg-pink-500 text-white px-6 py-3 rounded-full hover:bg-pink-400 transition-colors"
             >
               <Phone className="w-4 h-4" />
-              Zadzwoń teraz
+              {content.callNow}
             </a>
           </motion.div>
         </motion.div>

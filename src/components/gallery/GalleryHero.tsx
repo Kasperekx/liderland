@@ -2,8 +2,13 @@
 
 import { motion } from 'framer-motion';
 import { Badge } from '../ui/badge';
+import { useLanguageWithRouter } from '@/hooks/useLanguage';
+import { translations } from '@/i18n/translations';
 
 export function GalleryHero() {
+  const { language } = useLanguageWithRouter();
+  const t = translations[language as keyof typeof translations];
+
   return (
     <section className="relative overflow-hidden mb-20">
       <div className="absolute inset-0">
@@ -22,17 +27,15 @@ export function GalleryHero() {
             animate={{ scale: 1 }}
             className="inline-flex items-center gap-2 rounded-2xl bg-pink-50/50 p-2 pr-6 backdrop-blur-sm mb-8"
           >
-            <Badge className="bg-pink-500 text-white px-3 py-1.5 rounded-xl">Galeria</Badge>
-            <span className="text-sm font-medium text-pink-700">Liderland*PL</span>
+            <Badge className="bg-pink-500 text-white px-3 py-1.5 rounded-xl">{t.gallery.badge}</Badge>
+            <span className="text-sm font-medium text-pink-700">{t.gallery.subbadge}</span>
           </motion.div>
 
           <motion.h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-b from-gray-900 via-gray-600 to-gray-900 bg-clip-text text-transparent mb-6">
-            Magiczne Momenty
+            {t.gallery.title}
           </motion.h1>
 
-          <motion.p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-            Odkryj wyjątkowe chwile uchwycone w obiektywie, które pokazują piękno i charakter naszych Ragdolli
-          </motion.p>
+          <motion.p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">{t.gallery.description}</motion.p>
         </motion.div>
       </div>
 

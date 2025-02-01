@@ -1,15 +1,19 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
+import { useLanguageWithRouter } from '@/hooks/useLanguage';
+import { translations } from '@/i18n/translations';
 
 interface HeroProps {
-  title: string;
-  highlightedWord: string;
-  description: string;
+  translationKey: keyof Omit<typeof translations.pl, 'nav'>;
+  customTitle?: string;
+  customDescription?: string;
 }
 
-export function Hero({ title, highlightedWord, description }: HeroProps) {
+export function Hero({ translationKey, customTitle, customDescription }: HeroProps) {
   const prefersReducedMotion = useReducedMotion();
+  const { language } = useLanguageWithRouter();
+  const t = translations[language as keyof typeof translations];
 
   const fadeIn = {
     hidden: { opacity: 0 },
@@ -28,6 +32,30 @@ export function Hero({ title, highlightedWord, description }: HeroProps) {
     },
   };
 
+  const content = t[translationKey];
+  if (!content) return null;
+
+  const getDescription = () => {
+    if ('description' in content) return content.description;
+    if ('description_main' in content) return content.description_main;
+    return '';
+  };
+
+  const getTitle = () => {
+    if ('titleStart' in content) return `${content.titleStart} ${content.titleEnd}`;
+    if ('title' in content) return content.title;
+    return '';
+  };
+
+  const title = customTitle || getTitle();
+  const description = customDescription || getDescription();
+  const scrollText = 'scrollDown' in content ? content.scrollDown : t.hero.scrollDown;
+
+  const { titleStart, titleEnd } =
+    'titleStart' in content
+      ? content
+      : { titleStart: title.split(' ')[0], titleEnd: title.split(' ').slice(1).join(' ') };
+
   return (
     <section className="relative overflow-hidden py-20 sm:py-24 lg:py-32">
       {/* Background decorative elements */}
@@ -42,7 +70,7 @@ export function Hero({ title, highlightedWord, description }: HeroProps) {
             animate="visible"
             className="mt-8 bg-gradient-to-b from-gray-900 to-gray-600 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-6xl lg:text-7xl"
           >
-            {title} <span className="text-pink-500">{highlightedWord}</span>
+            {titleStart} <span className="text-pink-500">{titleEnd}</span>
           </motion.h1>
 
           <motion.p
@@ -55,7 +83,7 @@ export function Hero({ title, highlightedWord, description }: HeroProps) {
             {description}
           </motion.p>
 
-          <ScrollIndicator />
+          <ScrollIndicator text={scrollText} />
         </motion.div>
       </div>
 
@@ -67,7 +95,11 @@ export function Hero({ title, highlightedWord, description }: HeroProps) {
   );
 }
 
-function ScrollIndicator() {
+interface ScrollIndicatorProps {
+  text: string;
+}
+
+function ScrollIndicator({ text }: ScrollIndicatorProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -93,9 +125,7 @@ function ScrollIndicator() {
         }}
         className="group flex flex-col items-center gap-2 cursor-pointer"
       >
-        <span className="text-sm text-gray-500 group-hover:text-pink-500 transition-colors duration-300">
-          Przewiń w dół
-        </span>
+        <span className="text-sm text-gray-500 group-hover:text-pink-500 transition-colors duration-300">{text}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"

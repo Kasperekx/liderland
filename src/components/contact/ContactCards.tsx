@@ -2,20 +2,48 @@
 
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin } from 'lucide-react';
+import { useLanguageWithRouter } from '@/hooks/useLanguage';
+import { translations } from '@/i18n/translations';
 
-export interface ContactInfo {
+interface ContactCardsProps {
+  translationKey: keyof typeof translations.pl;
+}
+
+interface ContactInfo {
   title: string;
   primary: string;
   secondary: string;
-  iconType: 'mail' | 'phone' | 'map';
-  action: string | null;
 }
 
-interface ContactCardsProps {
-  contactInfo: ContactInfo[];
-}
+export function ContactCards({ translationKey }: ContactCardsProps) {
+  const { language } = useLanguageWithRouter();
+  const t = translations[language as keyof typeof translations];
+  const content = t[translationKey] as {
+    info: {
+      phone: ContactInfo;
+      email: ContactInfo;
+      location: ContactInfo;
+    };
+  };
 
-export function ContactCards({ contactInfo }: ContactCardsProps) {
+  const contactInfo = [
+    {
+      ...content.info.phone,
+      iconType: 'phone' as const,
+      action: 'tel:+48577509503',
+    },
+    {
+      ...content.info.email,
+      iconType: 'mail' as const,
+      action: 'mailto:liderlandcattery@gmail.com',
+    },
+    {
+      ...content.info.location,
+      iconType: 'map' as const,
+      action: null,
+    },
+  ];
+
   const getIcon = (iconType: string) => {
     switch (iconType) {
       case 'mail':

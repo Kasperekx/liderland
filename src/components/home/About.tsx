@@ -6,8 +6,13 @@ import Link from 'next/link';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { useFloatingAnimation } from '../../hooks/useFloatingAnimation';
+import { useLanguageWithRouter } from '@/hooks/useLanguage';
+import { translations } from '@/i18n/translations';
 
 export function About() {
+  const { language } = useLanguageWithRouter();
+  const t = translations[language as keyof typeof translations];
+
   const image1Ref = useFloatingAnimation(0);
   const image2Ref = useFloatingAnimation(1000);
   const image3Ref = useFloatingAnimation(500);
@@ -91,28 +96,20 @@ export function About() {
           >
             <div className="space-y-3 sm:space-y-4">
               <Badge className="px-3 sm:px-4 py-1 bg-pink-100 hover:bg-pink-100 text-pink-700 rounded-full text-sm">
-                O nas
+                {t.about.badge}
               </Badge>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
-                Pasja i Profesjonalizm w Hodowli Kotów Ragdoll
-              </h2>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">{t.about.title}</h2>
             </div>
 
             <div className="space-y-4 sm:space-y-6 text-gray-600">
-              <p className="text-base sm:text-lg leading-relaxed">
-                Nasza hodowla to nie tylko miejsce, to prawdziwy dom dla wyjątkowych kotów rasy Ragdoll. Z pasją i
-                zaangażowaniem dbamy o każdego kociaka, zapewniając im najlepsze warunki rozwoju i miłość od pierwszych
-                dni życia.
-              </p>
-              <p className="text-base sm:text-lg leading-relaxed">
-                Wszystkie nasze koty posiadają rodowody i są zarejestrowane w organizacji felinologicznej.
-              </p>
+              <p className="text-base sm:text-lg leading-relaxed">{t.about.description_main}</p>
+              <p className="text-base sm:text-lg leading-relaxed">{t.about.description_second}</p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/galeria">
                 <Button className="w-full sm:w-auto bg-pink-600 hover:bg-pink-500 text-white rounded-full px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg">
-                  Poznaj nasze koty
+                  {t.about.button}
                 </Button>
               </Link>
             </div>

@@ -4,8 +4,13 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '../ui/button';
+import { useLanguageWithRouter } from '@/hooks/useLanguage';
+import { translations } from '@/i18n/translations';
 
 export function Hero() {
+  const { language } = useLanguageWithRouter();
+  const t = translations[language as keyof typeof translations];
+
   return (
     <div className="relative min-h-[100svh]">
       <div className="absolute inset-0">
@@ -42,7 +47,7 @@ export function Hero() {
               }}
               className="text-base sm:text-lg md:text-xl font-medium tracking-[0.2em] uppercase text-white/90"
             >
-              Profesjonalna hodowla kotów Ragdoll
+              {t.hero.subtitle}
             </motion.h2>
 
             <motion.h1
@@ -51,7 +56,8 @@ export function Hero() {
               transition={{ duration: 1, delay: 0.4 }}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white mb-4 sm:mb-6 tracking-tight"
             >
-              Liderland<span className="text-pink-400">*PL</span>
+              {t.hero.titleStart}
+              <span className="text-pink-400">{t.hero.titleEnd}</span>
             </motion.h1>
 
             <motion.p
@@ -60,7 +66,7 @@ export function Hero() {
               transition={{ duration: 1, delay: 0.6 }}
               className="text-lg sm:text-xl md:text-2xl text-gray-200/90 leading-relaxed max-w-2xl mx-auto px-4"
             >
-              Witaj w świecie przepięknych kotów Ragdoll, gdzie elegancja spotyka się z czułością
+              {t.hero.description}
             </motion.p>
 
             <motion.div
@@ -71,7 +77,7 @@ export function Hero() {
             >
               <Link href="/kontakt">
                 <Button className="w-full sm:w-auto bg-pink-500 hover:bg-pink-400 text-white px-6 sm:px-8 py-6 sm:py-7 text-base sm:text-lg rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-pink-500/20">
-                  Skontaktuj się z nami
+                  {t.hero.buttons.kittens}
                 </Button>
               </Link>
               <Link href="/#about">
@@ -79,20 +85,20 @@ export function Hero() {
                   variant="outline"
                   className="w-full sm:w-auto border-2 border-white/80 text-white hover:text-pink-400 hover:border-pink-400 hover:bg-white/5 px-6 sm:px-8 py-6 sm:py-7 text-base sm:text-lg rounded-full transition-all duration-300 ease-in-out transform hover:scale-105"
                 >
-                  O hodowli
+                  {t.hero.buttons.about}
                 </Button>
               </Link>
             </motion.div>
           </motion.div>
 
-          <ScrollIndicator />
+          <ScrollIndicator content={t.hero.scrollDown} />
         </div>
       </div>
     </div>
   );
 }
 
-function ScrollIndicator() {
+function ScrollIndicator({ content }: { content: string }) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -106,7 +112,7 @@ function ScrollIndicator() {
     >
       <div className="flex flex-col items-center gap-2 sm:gap-3">
         <a href="#about" className="text-white/60 text-xs sm:text-sm tracking-wider uppercase">
-          Przewiń w dół
+          {content}
         </a>
         <motion.div
           animate={{ y: [0, 8, 0] }}

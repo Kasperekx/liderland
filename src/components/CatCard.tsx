@@ -17,19 +17,25 @@ interface CatCardProps {
   bloodGroup?: string;
   index: number;
   isFemale?: boolean;
+  labels: {
+    title: string;
+    color: string;
+    geneticTests: string;
+    birthDate?: string;
+    bloodGroup?: string;
+  };
 }
 
 export function CatCard({
   name,
-  title,
   image,
   geneticTests,
   color,
-
   birthDate,
   bloodGroup,
   index,
   isFemale = false,
+  labels,
 }: CatCardProps) {
   return (
     <motion.div
@@ -57,7 +63,7 @@ export function CatCard({
         {/* Nagłówek */}
         <div className="space-y-2">
           <h3 className="text-2xl font-bold text-gray-900">{name}</h3>
-          <p className="text-pink-600 font-medium">{title}</p>
+          <p className="text-pink-600 font-medium">{labels.title}</p>
         </div>
 
         {/* Badania genetyczne */}
@@ -73,7 +79,7 @@ export function CatCard({
               >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.5 12.75l6 6 9-13.5" />
               </svg>
-              <h4 className="text-lg font-semibold">Badania genetyczne</h4>
+              <h4 className="text-lg font-semibold">{labels.geneticTests}</h4>
             </div>
             <div className="flex flex-wrap gap-2 justify-center">
               {geneticTests.map((test, i) => (
@@ -88,12 +94,12 @@ export function CatCard({
         {/* Szczegóły */}
         <div className="grid grid-cols-2 gap-4 bg-pink-50/50 rounded-xl p-4">
           <div className="space-y-1">
-            <p className="text-sm text-gray-500">Kolor</p>
+            <p className="text-sm text-gray-500">{labels.color}</p>
             <p className="font-medium text-gray-900">{color}</p>
           </div>
 
           <div className="space-y-1">
-            <p className="text-sm text-gray-500">{isFemale ? 'Data urodzenia' : 'Grupa Krwi'}</p>
+            <p className="text-sm text-gray-500">{isFemale ? labels.birthDate : labels.bloodGroup}</p>
             <p className="font-medium text-gray-900">{isFemale ? birthDate : bloodGroup}</p>
           </div>
         </div>
